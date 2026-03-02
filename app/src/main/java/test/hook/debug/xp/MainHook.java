@@ -345,6 +345,18 @@ public class MainHook implements IXposedHookLoadPackage, IXposedHookInitPackageR
                 }
             }
         });
+
+        try {
+            XposedHelpers.findAndHookMethod("com.xiaomi.fitness.devicesettings.utils.ZenUtils", classLoader, "isSupportZenMode", classLoader.loadClass("com.xiaomi.fitness.device.manager.export.WearableDeviceModel"), new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    super.beforeHookedMethod(param);
+                    param.setResult(true);
+                }
+            });
+        } catch (NoSuchMethodError e) {
+
+        }
     }
 
     @Override
